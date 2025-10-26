@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.openrouter-image-gen",
+  "title": "OpenRouter Image Generator",
+  "description": "Generate and edit images using OpenRouter's Nano Banana model",
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "openrouter-image-gen-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["openrouter-image-gen-mcp"],
+        "environment": {
+          "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY}"
+        }
+      }
+    }
+  ],
+  "tools": [
+    {
+      "name": "generate_image",
+      "description": "Generate an image from text description"
+    },
+    {
+      "name": "edit_image",
+      "description": "Edit an existing image with instructions"
+    },
+    {
+      "name": "list_available_models",
+      "description": "List supported image generation models"
+    }
+  ]
+}
