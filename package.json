@@ -8,7 +8,7 @@
     "openrouter-image-gen-mcp": "dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && tsc-alias --resolve-full-paths",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
     "test": "jest",
@@ -32,12 +32,12 @@
   "author": "OpenRouter Image Generator Team",
   "repository": {
     "type": "git",
-    "url": "https://github.com/username/openrouter-image-gen-mcp.git"
+    "url": "git+https://github.com/Mephistophillis/image-generator-mcp.git"
   },
   "bugs": {
-    "url": "https://github.com/username/openrouter-image-gen-mcp/issues"
+    "url": "https://github.com/Mephistophillis/image-generator-mcp/issues"
   },
-  "homepage": "https://github.com/username/openrouter-image-gen-mcp#readme",
+  "homepage": "https://github.com/Mephistophillis/image-generator-mcp#readme",
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.20.2",
@@ -55,6 +55,7 @@
     "prettier": "^3.6.2",
     "ts-jest": "^29.4.5",
     "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3"
   },
   "files": [

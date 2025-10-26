@@ -2,20 +2,22 @@ import { generateImageHandler } from '../../src/tools/generate';
 import { editImageHandler } from '../../src/tools/edit';
 import { listModelsHandler } from '../../src/tools/models';
 
-// Mock the OpenRouter client
+// Mock OpenRouter client
+const mockOpenRouterClient = {
+  generateImage: jest
+    .fn()
+    .mockResolvedValue(
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+    ),
+  editImage: jest
+    .fn()
+    .mockResolvedValue(
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
+    ),
+};
+
 jest.mock('../../src/services/openrouter', () => ({
-  OpenRouterClient: jest.fn().mockImplementation(() => ({
-    generateImage: jest
-      .fn()
-      .mockResolvedValue(
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
-      ),
-    editImage: jest
-      .fn()
-      .mockResolvedValue(
-        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=='
-      ),
-  })),
+  OpenRouterClient: jest.fn().mockImplementation(() => mockOpenRouterClient),
 }));
 
 // Mock file system operations
@@ -55,14 +57,22 @@ describe('Tool Handlers Integration Tests', () => {
       delete process.env.OPENROUTER_API_KEY;
 
       const args = { prompt: 'test' };
+
+      // Reset mock to throw error
+      const { OpenRouterClient } = require('../../src/services/openrouter');
+      OpenRouterClient.mockImplementation(() => {
+        throw new Error('OPENROUTER_API_KEY environment variable is required');
+      });
+
       const result = await generateImageHandler(args);
 
       const response = JSON.parse(result.content[0].text);
       expect(response.success).toBe(false);
       expect(response.error).toContain('OPENROUTER_API_KEY');
 
-      // Restore environment
+      // Restore environment and mock
       process.env.OPENROUTER_API_KEY = originalEnv;
+      OpenRouterClient.mockImplementation(() => mockOpenRouterClient);
     });
 
     it('should validate input', async () => {

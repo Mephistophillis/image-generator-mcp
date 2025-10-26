@@ -1,5 +1,5 @@
-import { logger } from '../utils/logger.js';
-import { validateInput, ListModelsSchema } from '../utils/validation.js';
+import { logger } from '../utils/logger';
+import { validateInput, ListModelsSchema } from '../utils/validation';
 
 export function listModelsHandler(args: unknown): {
   content: Array<{ type: string; text: string }>;

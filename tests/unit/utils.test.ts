@@ -8,7 +8,7 @@ describe('Utility Functions', () => {
       const filename = generateFilename(prompt);
 
       expect(filename).toMatch(
-        /^generated_beautiful_sunset_\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.png$/
+        /^generated_beautiful_sunset_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}\.png$/
       );
     });
 
@@ -25,36 +25,36 @@ describe('Utility Functions', () => {
       const prompt = 'sunset @#$%^&*()';
       const filename = generateFilename(prompt);
 
-      expect(filename).toMatch(/^generated_sunset_\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.png$/);
+      expect(filename).toMatch(/^generated_sunset__\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}\.png$/);
     });
 
     it('should use custom prefix', () => {
       const prompt = 'cat';
       const filename = generateFilename(prompt, 'edited');
 
-      expect(filename).toMatch(/^edited_cat_\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.png$/);
+      expect(filename).toMatch(/^edited_cat_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}\.png$/);
     });
   });
 
   describe('generateFilename special character handling', () => {
     it('should replace special characters with underscores', () => {
       const result = generateFilename('file@name#test');
-      expect(result).toMatch(/^generated_file_name_test_\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.png$/);
+      expect(result).toMatch(/^generated_filenametest_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}\.png$/);
     });
 
     it('should handle multiple consecutive special characters', () => {
       const result = generateFilename('file@@@##test');
-      expect(result).toMatch(/^generated_file_test_\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.png$/);
+      expect(result).toMatch(/^generated_filetest_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}\.png$/);
     });
 
     it('should handle leading and trailing special characters', () => {
       const result = generateFilename('@filename@');
-      expect(result).toMatch(/^generated_filename_\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.png$/);
+      expect(result).toMatch(/^generated_filename_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}\.png$/);
     });
 
     it('should convert to lowercase', () => {
       const result = generateFilename('FileName');
-      expect(result).toMatch(/^generated_filename_\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.png$/);
+      expect(result).toMatch(/^generated_filename_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}\.png$/);
     });
   });
 

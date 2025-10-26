@@ -1,4 +1,4 @@
-import { logger } from './logger.js';
+import { logger } from './logger';
 
 export function generateFilename(prompt: string, prefix: string = 'generated'): string {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-').replace('T', '_').slice(0, -5);

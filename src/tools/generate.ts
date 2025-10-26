@@ -1,11 +1,7 @@
-import {
-  generateFilename,
-  saveImageFromDataUri,
-  ensureDirectoryExists,
-} from '../utils/filename.js';
-import { logger } from '../utils/logger.js';
-import { OpenRouterClient } from '../services/openrouter.js';
-import { validateInput, GenerateImageSchema } from '../utils/validation.js';
+import { generateFilename, saveImageFromDataUri, ensureDirectoryExists } from '../utils/filename';
+import { logger } from '../utils/logger';
+import { OpenRouterClient } from '../services/openrouter';
+import { validateInput, GenerateImageSchema } from '../utils/validation';
 
 export async function generateImageHandler(
   args: unknown
